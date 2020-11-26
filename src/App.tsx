@@ -1,26 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useState } from 'react';
+import ItemList from './components/Itemlist';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export interface Item{
+  itemName?:string,
+  done?:boolean
+}
+
+const App:React.FC = () =>{
+  const [item,setItem] = useState<Item | null>(null)
+  const [itemList,setItemList] = useState<Item[]|null>([{itemName:"dsd",done:false}])
+
+  return <div>
+    <input value={item?.itemName} onChange={e=>setItem({itemName:e.target.value,done:false})}/>
+    <button onClick={()=>setItemList(oldItem=>[...oldItem,item])}>ADD</button>
+
+    <ItemList itemList={itemList}/>
+    </div>;
 }
 
 export default App;
